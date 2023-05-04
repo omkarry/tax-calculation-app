@@ -1,25 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
+import Home from './Pages/Home';
+import { createContext, useEffect, useState } from 'react';
+import React from "react";
+import { userData } from './Data/UserData';
+import EmployeeDashboard from './Pages/EmployeeDashboard';
+import AdminDashboard from './Pages/AdminDashboard';
+
+export const AppContext = React.createContext<any>({});
 
 function App() {
+  const [user, setUser] = useState<userData | null>(null);
+  useEffect(() => {
+    debugger
+    const access_token = localStorage.getItem("access_token");
+
+    if (access_token != null) {
+      try {
+        console.log(access_token)
+        const payload = JSON.parse(access_token);
+        setUser(payload);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={user}>
+      <BrowserRouter>
+      <div className="App">
+        {user ?(
+          <>
+          {user.role == "Employee"? <EmployeeDashboard /> : (user.role =="Admin" ? <AdminDashboard /> : <p>Unknown</p>)}
+          </>
+        ):<Home />}
+      </div>
+    </BrowserRouter>
+    </AppContext.Provider>
   );
 }
 
