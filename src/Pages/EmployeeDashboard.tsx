@@ -29,10 +29,11 @@ const EmployeeDashboard = () => {
         </div>
       </header>
       <div>
-        <Routes>
+        {/* <Routes>
           <Route path="/createEmployee" element={<RegistrationForm title="Employee"/>} />
           <Route path="/createAdmin" element={<RegistrationForm title="Admin"/>} />
-        </Routes>
+          
+        </Routes> */}
       </div>
     </div>
   );

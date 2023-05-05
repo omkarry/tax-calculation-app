@@ -32,7 +32,7 @@ function App() {
       <div className="App">
         {user ?(
           <>
-          {user.role == "Employee"? <EmployeeDashboard /> : (user.role =="Admin" ? <AdminDashboard /> : <p>Unknown</p>)}
+          {user.role == "Employee"? <EmployeeDashboard /> : (user.role =="Admin" ? <AdminDashboard user={user}/> : <p>Unknown</p>)}
           </>
         ):<Home />}
       </div>

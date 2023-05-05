@@ -2,12 +2,15 @@ import { useState } from "react";
 import { RegisterData } from "../Data/RegistrationData";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { userData } from "../Data/UserData";
 
 interface Props {
   title: string;
+  user: userData | null;
 }
 
-const RegistrationForm: React.FC<Props> = ({ title }) => {
+const RegistrationForm: React.FC<Props> = ({ title, user }) => {
+  const [userId, setUserId] = useState<string | undefined>(user?.userId);
   const [register, setRegisterData] = useState<RegisterData>({
     name: "",
     username: "",
@@ -32,7 +35,7 @@ const RegistrationForm: React.FC<Props> = ({ title }) => {
     event.preventDefault();
     if (title == 'Admin') {
       axios
-        .put("https://localhost:7141/api/Authenticate/register-admin", register)
+        .post("https://localhost:7141/api/Authenticate/register-admin", register)
         .then(res => {
           navigate('/employees')
         })
@@ -41,8 +44,9 @@ const RegistrationForm: React.FC<Props> = ({ title }) => {
         });
     }
     else {
+      debugger
       axios
-        .post("https://localhost:7141/api/Employee", register)
+        .post(`https://localhost:7141/api/Employee/add/${userId}`, register)
         .then(res => {
           navigate('/employees')
         })

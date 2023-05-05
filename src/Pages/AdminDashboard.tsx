@@ -1,13 +1,11 @@
-import { useContext } from "react";
-import { AppContext } from "../App";
 import { Link, Route, Routes } from "react-router-dom";
 import Logo from "../Assets/Images/Logo.png";
 import { SignOut } from "../Components/SignOut";
 import RegistrationForm from "../Components/RegistrationForm";
+import EmployeeTable from "./Employees";
+import { userData } from "../Data/UserData";
 
-
-const AdminDashboard = () => {
-  const { user } = useContext(AppContext);
+const AdminDashboard:React.FC<{user:userData}> = ({user}) => {
   return(
     <div className="container-fluid mx-0 px-0">
       <header className="d-flex flex-wrap align-items-center justify-content-between justify-content-md-between py-3 px-4 border-bottom">
@@ -34,8 +32,9 @@ const AdminDashboard = () => {
       </header>
       <div>
         <Routes>
-          <Route path="/createEmployee" element={<RegistrationForm title="Employee"/>} />
-          <Route path="/createAdmin" element={<RegistrationForm title="Admin"/>} />
+          <Route path="/createEmployee" element={<RegistrationForm title="Employee" user={user}/>} />
+          <Route path="/createAdmin" element={<RegistrationForm title="Admin" user={user}/>} />
+          <Route path="/employees" element={<EmployeeTable />} />
         </Routes>
       </div>
     </div>
