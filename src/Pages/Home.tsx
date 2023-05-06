@@ -119,8 +119,9 @@ const Home = () => {
       <div className="row align-items-md-stretch px-5 my-3">
         <div className="col-md-6">
           <div className="h-100 p-5 text-bg-dark rounded-3 shadow">
-            <h2>Change the background</h2>
-            <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
+            <p>We are more than a company, we are a family!
+              We are a diverse yet close-knit group of people united by a passion for technology
+              At IncubXperts, we believe in working hard, playing harder, and drinking a whole lot of tea (and coffee)!</p>
             <button className="btn btn-outline-light" type="button">Example button</button>
           </div>
         </div>
@@ -134,10 +135,9 @@ const Home = () => {
       </div>
       <div className="mw-100 border my-3 rounded shadow text-center px-5 py-3">
         <p className="h6 rounded">
-          The natural environment or natural world encompasses all living and non-living things occurring naturally,
-          meaning in this case not artificial. The term is most often applied to the Earth or some parts of Earth.
-          This environment encompasses the interaction of all living species, climate, weather and natural resources
-          that affect human survival and economic activity.
+          We are more than a company, we are a family!
+          We are a diverse yet close-knit group of people united by a passion for technology
+          At IncubXperts, we believe in working hard, playing harder, and drinking a whole lot of tea (and coffee)!
         </p>
       </div>
       <div className="album py-5 bg-body-tertiary">

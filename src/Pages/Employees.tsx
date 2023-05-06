@@ -8,15 +8,15 @@ const EmployeeTable = () => {
 
   const getEmployeeData = () => {
     axios.get("https://localhost:7141/api/Employee")
-    .then(res => {
-      setEmployees(res.data.result);
-    })
+      .then(res => {
+        setEmployees(res.data.result);
+      })
   }
   useEffect(() => {
     getEmployeeData();
   }, [])
   return (
-    <>
+    <div className="container mt-3">
       <Table responsive bordered>
         <thead>
           <tr className='bg-light'>
@@ -51,7 +51,8 @@ const EmployeeTable = () => {
             })
           }
         </tbody>
-      </Table></>
+      </Table>
+    </div>
   );
 }
 

@@ -1,7 +1,9 @@
 import { Link, Route, Routes } from "react-router-dom";
 import Logo from "../Assets/Images/Logo.png";
 import { SignOut } from "../Components/SignOut";
-import RegistrationForm from "../Components/RegistrationForm";
+import InvestmentDeclaration from "./TaxDeclaration";
+import Loader from "../Components/Loader";
+import UpdateProfile from "./UpdateProfile";
 
 const EmployeeDashboard = () => {
   return (
@@ -20,20 +22,22 @@ const EmployeeDashboard = () => {
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" className="rounded-circle" />
           </a>
           <ul className="dropdown-menu text-small">
-            <li><Link to={"/createEmployee"} className="dropdown-item">Create New Employee</Link></li>
-            <li><Link to={"/createAdmin"} className="dropdown-item">Create New Admin</Link></li>
-            <li><Link to={"/employees"} className="dropdown-item">See Employees</Link></li>
+            <li><Link to={"/investmentDeclaration"} className="dropdown-item">Investment Declaration</Link></li>
+            <li><Link to={"/updateProfile"} className="dropdown-item">Update Profile</Link></li>
             <li><hr className="dropdown-divider" /></li>
             <li><a className="dropdown-item" onClick={SignOut}>Sign out</a></li>
           </ul>
         </div>
       </header>
+        {/* <div>
+          <Loader />
+        </div> */}
       <div>
-        {/* <Routes>
-          <Route path="/createEmployee" element={<RegistrationForm title="Employee"/>} />
-          <Route path="/createAdmin" element={<RegistrationForm title="Admin"/>} />
-          
-        </Routes> */}
+        
+        <Routes>
+          <Route path="/investmentDeclaration" element={<InvestmentDeclaration />} />
+          <Route path="/updateProfile" element={<UpdateProfile />} />        
+        </Routes>
       </div>
     </div>
   );
