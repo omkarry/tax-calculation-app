@@ -6,10 +6,15 @@ import DashboardHead from "../Assets/Images/home-image.jpg"
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [validUser, setValidUser] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const onHide = () => {
+    setUsername("");
+    setPassword("");
+    setValidUser("");
     setShowModal(false);
   }
 
@@ -28,7 +33,7 @@ const Home = () => {
         const data: any = response.data;
 
         if (response.status === 200) {
-          // Store the access token in a secure way
+          setValidUser("");
           console.log(data.token);
           localStorage.setItem("access_token", JSON.stringify(data));
           window.location.reload();
@@ -38,6 +43,7 @@ const Home = () => {
         }
       })
       .catch((error) => {
+        setValidUser("Invalid username or password");
         console.error(error);
       });
   };
@@ -69,6 +75,7 @@ const Home = () => {
         </Modal.Title>
         <Modal.Body>
           <Form>
+          {validUser != "" ? <p className="text-danger">{validUser}</p> : null}
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>
                 Username
