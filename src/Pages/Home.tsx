@@ -3,6 +3,7 @@ import Logo from "../Assets/Images/Logo.png"
 import { Modal, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import DashboardHead from "../Assets/Images/home-image.jpg"
+import useHttp from "../Config/https";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -10,6 +11,7 @@ const Home = () => {
   const [validUser, setValidUser] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const {axiosInstance, loading} = useHttp();
 
   const onHide = () => {
     setUsername("");
@@ -20,8 +22,8 @@ const Home = () => {
 
   const handleLogin = () => {
     debugger
-    axios
-      .post("https://localhost:7141/api/Authenticate/login", {
+    axiosInstance
+      .post("Authenticate/login", {
         username,
         password,
       }, {

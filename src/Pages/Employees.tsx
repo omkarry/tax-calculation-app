@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { EmployeeData } from "../Data/EmployeeData";
 import axios from "axios";
+import useHttp from "../Config/https";
 
 const EmployeeTable = () => {
-  const [employees, setEmployees] = useState<EmployeeData[]>([])
+  const [employees, setEmployees] = useState<EmployeeData[]>([]);
+  const {axiosInstance, loading} = useHttp();
 
   const getEmployeeData = () => {
-    axios.get("https://localhost:7141/api/Employee")
+    axiosInstance.get("Employee")
       .then(res => {
         setEmployees(res.data.result);
       })

@@ -6,7 +6,7 @@ const useHttp = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const axiosInstance = axios.create({
-    baseURL: "https://localhost:7141/api",
+    baseURL: "https://localhost:7141/api/",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",

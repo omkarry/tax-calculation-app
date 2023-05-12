@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { userData } from '../Data/UserData';
 import TaxResult from './TaxResult';
+import useHttp from '../Config/https';
 
 interface Section {
   id: number;
@@ -26,7 +27,8 @@ const InvestmentDeclaration: React.FC<{ user: userData }> = (user) => {
   const [userId, setUserId] = useState<string>(user.user.userId);
   const [empInvestment, setEmpInvestment] = useState<InvestmentData[]>([]);
   const [sections, setSections] = useState<Section[]>([]);
-  const [investmentData, setinvestmentData] = useState<InvestmentData[]>([])
+  const [investmentData, setinvestmentData] = useState<InvestmentData[]>([]);
+  const {axiosInstance, loading} = useHttp();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -44,7 +46,7 @@ const InvestmentDeclaration: React.FC<{ user: userData }> = (user) => {
   };
 
   const getEmpInvestment = () => {
-    axios.get(`https://localhost:7141/api/EmployeeInvestment/${userId}`)
+    axiosInstance.get(`EmployeeInvestment/${userId}`)
       .then(res => {
         setEmpInvestment(res.data.result)
       })
@@ -52,7 +54,7 @@ const InvestmentDeclaration: React.FC<{ user: userData }> = (user) => {
 
   useEffect(() => {
     debugger
-    axios.get("https://localhost:7141/api/Section")
+    axiosInstance.get("Section")
       .then(res => {
         setSections(res.data.result);
       })
@@ -84,8 +86,8 @@ const InvestmentDeclaration: React.FC<{ user: userData }> = (user) => {
     });
 
     try {
-      const response = await axios.post(
-        `https://localhost:7141/api/EmployeeInvestment`,
+      const response = await axiosInstance.post(
+        `EmployeeInvestment`,
         investmentData, {
         params: { empId: userId }
       }

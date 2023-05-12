@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { userData } from "../Data/UserData";
 import { SalaryDetails } from "../Data/SalaryDetails";
 import "../Assets/css/Form.css";
+import useHttp from "../Config/https";
 
 interface Props {
   title: string;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const RegistrationForm: React.FC<Props> = ({ title, user }) => {
+  const { axiosInstance, loading } = useHttp();
   const [userId, setUserId] = useState<string | undefined>(user?.userId);
   const [register, setRegisterData] = useState<RegisterData>({
     name: "",
@@ -62,8 +64,8 @@ const RegistrationForm: React.FC<Props> = ({ title, user }) => {
       [name]: value
     });
     if (validateEmail(value)) {
-      axios
-        .get(`https://localhost:7141/api/Authenticate/IsEmailExist/${value}`)
+      axiosInstance
+        .get(`Authenticate/IsEmailExist/${value}`)
         .then(res => {
           if (res.data.result) {
             setEmailAlert(true);
@@ -90,8 +92,8 @@ const RegistrationForm: React.FC<Props> = ({ title, user }) => {
       [name]: value
     });
     if (validateName(value)) {
-      axios
-        .get(`https://localhost:7141/api/Authenticate/IsUsernameExist/${value}`)
+      axiosInstance
+        .get(`Authenticate/IsUsernameExist/${value}`)
         .then(res => {
           if (res.data.result) {
             setUsernameAlert(true);
@@ -131,8 +133,8 @@ const RegistrationForm: React.FC<Props> = ({ title, user }) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (title == 'Admin') {
-      axios
-        .post("https://localhost:7141/api/Authenticate/register-admin", register)
+      axiosInstance
+        .post("Authenticate/register-admin", register)
         .then(res => {
           navigate('/employees')
         })
@@ -142,8 +144,8 @@ const RegistrationForm: React.FC<Props> = ({ title, user }) => {
     }
     else {
       const empSalary = {...register, salaryDetails: salaryDetails};
-      axios
-        .post(`https://localhost:7141/api/Employee/add/${userId}`, empSalary)
+      axiosInstance
+        .post(`Employee/add/${userId}`, empSalary)
         .then(res => {
           console.log(res.data.result)
           navigate("/employees")

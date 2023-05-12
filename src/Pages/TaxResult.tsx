@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { userData } from "../Data/UserData";
+import useHttp from "../Config/https";
 
 interface Props {
   user: string;
@@ -10,10 +11,13 @@ interface Props {
 const TaxResult: React.FC<Props> = ({ user, regimeType }) => {
   const [tax, setTax] = useState<number | null>(null);
   const [userId, setUserId] = useState<string>(user);
+
+  const {axiosInstance, loading} = useHttp();
+
   useEffect(() => {
     debugger
     if (regimeType == "new") {
-      axios.get(`https://localhost:7141/api/TaxCalculation/newRegime`,
+      axiosInstance.get(`TaxCalculation/newRegime`,
         {
           params: { empId: userId }
         }
@@ -26,7 +30,7 @@ const TaxResult: React.FC<Props> = ({ user, regimeType }) => {
         })
     }
     else{
-      axios.get(`https://localhost:7141/api/TaxCalculation/oldRegime`,
+      axiosInstance.get(`TaxCalculation/oldRegime`,
     {
       params:{empId: userId}
     }
